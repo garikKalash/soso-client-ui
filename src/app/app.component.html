@@ -1,3 +1,11 @@
-<h1>
-  {{title}}
-</h1>
+<div class="btn-group">
+  <button *ngFor="let lang of supportedLanguages"
+            (click)="selectLang(lang.value)"
+          class="btn btn-default"   [class.btn-primary]="isCurrentLang(lang.value)">
+      <img src="{{lang.flagpath}}">
+    </button>
+</div>
+
+
+
+<router-outlet></router-outlet>
