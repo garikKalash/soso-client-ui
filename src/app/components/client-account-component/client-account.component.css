@@ -1,0 +1,7 @@
+.ui-carousel-header.ui-widget-header.ui-corner-all {
+  display: none !important;
+}
+
+.ui-lightbox{
+  width: 50px !important;
+}

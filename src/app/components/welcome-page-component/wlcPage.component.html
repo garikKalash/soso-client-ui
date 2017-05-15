@@ -1,0 +1,11 @@
+
+<button pButton type="button" label="{{'signin' | translate}}" (click)="showSigninDialog()"></button>
+<button pButton type="button" label="{{'signup' | translate}}" (click)="showSignupDialog()"></button>
+<p-dialog [(visible)]="_isSigningUser" [responsive]="true" showEffect="fade" [modal]="true"
+          [closable]="true">
+  <login-component></login-component>
+</p-dialog>
+<p-dialog [(visible)]="_isSignupingUser" [responsive]="true" showEffect="fade" [modal]="true"
+          [closable]="true">
+  <connect-to-system-component></connect-to-system-component>
+</p-dialog>

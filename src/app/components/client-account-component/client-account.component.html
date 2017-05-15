@@ -1,0 +1,437 @@
+<p>{{_client.name}}</p>
+<p></p>
+<button pButton type="button" (click)="logout()" icon="fa-sign-out" label="{{'signout' | translate}}"
+        iconPos="left"></button>
+
+<p-tabView>
+  <p-tabPanel header="SOSO">
+    <div>
+      <p-dropdown [options]="_servicesAsSelectItems" [(ngModel)]="selectedService" [filter]="true"
+                  [style]="{'width':'150px'}"></p-dropdown>
+      <button pButton type="button" label="SOSO" (click)="soso()"></button>
+      <button pButton type="button" (click)="showLocationPicker()" icon="fa-street-view" iconPos="left"></button>
+    </div><div>
+    <button pButton  label="See available services" type="button" (click)="showAvailableServices()" *ngIf="!_showAvailableServices"></button>
+    <button pButton  label="Close available services" type="button" (click)="hideAvailableServices()" *ngIf="_showAvailableServices"></button>
+  </div>
+    <p-dialog [(visible)]="_showLocation" [responsive]="true" showEffect="fade" [modal]="true"
+              (onAfterHide)="closeLocationPicker()" [closable]="true">
+      <div>Radius of search in km</div>
+      <input [(ngModel)]="_selectedRadiusForSearch"/>
+      <hr>
+      <div>{{mySelectedLocation()}}</div>
+      <sebm-google-map style="height:200px;" [latitude]="mapLatitude()" [longitude]="mapLongitude()"
+                       [scrollwheel]="false"
+                       [zoom]="mapZoom()">
+        <sebm-google-map-marker (dragEnd)="addressMarkerDragEnd($event)" [markerDraggable]="true"
+                                [latitude]="mapLatitude()" [longitude]="mapLongitude()"></sebm-google-map-marker>
+      </sebm-google-map>
+    </p-dialog>
+    <div id="welcomePageId" *ngIf="_filteredPartnersByService.length == 0 && _showAvailableServices">
+
+
+      <p-dataGrid [value]="services" [paginator]="false" [rows]="3" [paginator]="false">
+        <p-header>
+          Available services
+        </p-header>
+        <ng-template let-service pTemplate="item">
+          <div class="ui-grid-row">
+          <div class="ui-grid-col-4" (click)="setAndFilterService(service)">
+            {{service.serviceName_arm}}
+            <img src="{{servicePhoto(service.id)}}"
+                 style="width: 200px; height: 200px;"/>
+          </div></div>
+        </ng-template>
+      </p-dataGrid>
+    </div>
+
+
+    <div *ngIf="_filteredPartnersByService.length != 0">
+
+        <input #gb type="text" style="{'width':'100%'}" pInputText placeholder="Search username..." [(ngModel)]="_searchTerm"
+               (keyup)="filterSosoResult()">
+
+      <p-dataList [value]="_filteredPartnersByService" [paginator]="true" [rows]="5">
+        <ng-template let-partner pTemplate="item">
+          <div class="ui-grid ui-grid-responsive ui-fluid"
+               style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;" *ngIf="distanceToPartner(partner) <= _selectedRadiusForSearch">
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-3" style="text-align:center">
+                <img src="{{safeImage(partner.imgpath)}}" style="width: 95px;height: 95px;">
+                <button pButton type="button" *ngIf="partner.photoDtos?.length != 0" label="{{'morephotosbtnlabel' | translate}}"
+                        (click)="showSelectedPartnerDetails(partner)"
+                        icon="fa-picture-o" iconPos="left"></button>
+              </div>
+
+              <div class="ui-grid-col-6">
+                <div class="ui-grid ui-grid-responsive ui-fluid">
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">{{'name' | translate}}</div>
+                    <div class="ui-grid-col-10">{{partner.name}}</div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">{{'username' | translate}}</div>
+                    <div class="ui-grid-col-10">{{partner.username}}</div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">{{'telephone' | translate}}</div>
+                    <div class="ui-grid-col-10">{{partner.telephone}}</div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">{{'address' | translate}}</div>
+                    <div class="ui-grid-col-10">{{partner.address}}</div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">{{'averageRate' | translate}}</div>
+                    <div class="ui-grid-col-10" (click)="showSelectedPartnerFeedbacks(partner)" *ngIf="partner.averageRate != 0">
+                      <rating [ngModel]="partner.averageRate"
+                              [float]="true" [readonly]="true">
+                      </rating>
+                      {{partner.averageRate.toFixed(2)}} from 5
+                    </div>
+                    <div *ngIf="partner.averageRate == 0">Not rated yet</div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">{{'distance' | translate}}</div>
+                    <div class="ui-grid-col-10">
+                      {{distanceToPartner(partner)}} km
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="ui-grid-col-2">
+                <div class="ui-grid ui-grid-responsive ui-fluid">
+                  <button pButton type="button" label="{{'reservebtnlabel' | translate}}"
+                          (click)="setSelectedPartnier(partner)"
+                          *ngIf="partner.reservable" icon="fa-check" iconPos="left"></button>
+                  <button pButton type="button" label="{{'callbtnlabel' | translate}}" *ngIf="!partner.reservable"
+                          icon="fa-hand-peace-o" iconPos="left"></button>
+                  <button pButton type="button" label="See services" (click)="showPartnerServices(partner)" icon="fa fa-info"
+                          iconPos="left"></button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </ng-template>
+      </p-dataList>
+    </div>
+
+
+    <p-dialog [(visible)]="_reservePartner" [responsive]="true" showEffect="fade" [modal]="true"
+                [style]="{'overflow':'visible'}"
+              [contentStyle]="{'overflow':'visible'}"
+              (onAfterHide)="closeSelectedPartnierDetails()" [closable]="true">
+      <p-schedule [events]="getSchedule()"
+                  [header]="header"
+                  [allDaySlot]="false"
+                  [editable]="true"
+                  (onEventClick)="onEventClickHandler($event)"
+                  (onDayClick)="onDayClickHandler($event)">
+      </p-schedule>
+      <p-dialog header="Event Details" [visible]="showEventDetails()"
+                [closable]="true" [closeOnEscape]="true" [responsive]="true" showEffect="fade"
+                [modal]="false" [contentStyle]="{'overflow':'visible'}"
+                [style]="{'overflow':'visible'}" [resizable]="false">
+        <p-header>
+        </p-header>
+        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedRequest()">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label>Description:</label></div>
+            <div class="ui-grid-col-8">
+              <div>
+                {{selectedRequest().description}}
+              </div>
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label>Start:</label></div>
+            <div class="ui-grid-col-8">
+              <div>{{selectedRequest().startTime| date: 'MMM dd yy, HH:mm'}}</div>
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label>End:</label></div>
+            <div class="ui-grid-col-8">
+              <div>{{selectedRequest().endTime | date: 'MMM dd yy, HH:mm'}}</div>
+            </div>
+          </div>
+        </div>
+        <p-footer>
+          <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button pButton type="button" label="Close reservation" (click)="closeEventDetails()"></button>
+          </div>
+        </p-footer>
+      </p-dialog>
+      <p-dialog [visible]="createEvent()" [closable]="true"
+                [modal]="false" [contentStyle]="{'overflow':'visible'}"
+                [style]="{'overflow':'visible'}" [resizable]="false">
+        <p-header style="display:none !important;">
+        </p-header>
+        <div class="ui-grid ui-grid-responsive ui-fluid">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-8" style="{{!selectedPartner.hasSubServices ? 'display:none':''}}">
+              <label>{{'service' | translate}}</label>
+              <p-dropdown [options]="_partnerServicesAsSelectItems"
+                          [(ngModel)]="newRequest().service"
+                          [style]="{'width':'150px'}">
+              </p-dropdown>
+            </div>
+          </div>
+          <div class="ui-grid-row">
+
+            <div class="ui-grid-col-4" *ngIf="newRequest().service">
+              <label>Duration</label>
+              <p>{{newRequest().service?.defaultduration}}</p>
+            </div>
+            <div class="ui-grid-col-4">
+              <label>Price</label>
+              <p>{{newRequest().service?.price}}</p>
+            </div>
+
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-8">
+              <label>{{'description' | translate}}</label>
+              <input type="text" pInputText id="reservationTitleInputId" [(ngModel)]="newRequest().description"
+                     field="newRequest().description"/>
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-8">
+              <label>{{'startTime' | translate}}</label>
+              <p-calendar [(ngModel)]="newRequest().newRequestStartTime" [timeOnly]="true"></p-calendar>
+              <div class="validation-error-block" *ngIf="_crossedRequestStartNewRequest">Reserve with this duration is crossed with reservation which is starting {{_crossedRequestStartNewRequest?.startTime | date: 'MMM dd yy, HH:mm'}} with duration {{_crossedRequestStartNewRequest?.duration}}.</div>
+              <div class="validation-error-block" *ngIf="_crossedRequestDurationNewRequest">Reserve with this duration is crossed with reservation which is starting {{_crossedRequestDurationNewRequest?.startTime | date: 'MMM dd yy, HH:mm'}}.</div>
+
+            </div>
+          </div>
+        </div>
+        <p-footer>
+          <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button pButton type="button" label="SOSO Reserve" (click)="newReserveEvent()"></button>
+            <button pButton type="button" label="{{'cancelbtnlabel' | translate}}"
+                    (click)="cancelAddingCustomEvent()"></button>
+
+          </div>
+        </p-footer>
+      </p-dialog>
+    </p-dialog>
+    <p-dialog [(visible)]="_isWatchingPartnerServices" [responsive]="true" showEffect="fade" [modal]="true"
+              (onAfterHide)="onServicesDetailClose()" [closable]="true">
+      <p-dataTable [value]="selectedPartner.services" [editable]="true">
+        <p-column field="service" header="Service">
+          <ng-template let-servicesOfPartner="rowData" pTemplate="body">
+              <p>{{servicesOfPartner.service?._serviceName_arm}}</p>
+          </ng-template>
+        </p-column>
+        <p-column field="defaultduration" header="Duration">
+          <ng-template let-servicesOfPartner="rowData" pTemplate="body">
+            <p>{{servicesOfPartner.defaultduration}}</p>
+          </ng-template>
+        </p-column>
+        <p-column field="price" header="Price">
+          <ng-template let-servicesOfPartner="rowData" pTemplate="body">
+            <p>{{servicesOfPartner.price}}</p>
+            </ng-template>
+        </p-column>
+      </p-dataTable>
+
+    </p-dialog>
+
+    <p-dialog [(visible)]="_showPartnerFeedbacks" [responsive]="true" showEffect="fade" [modal]="true"
+              (onAfterHide)="closePartnerFeedbacks()" [closable]="true">
+      <p-header>
+        {{'feedbacks' | translate}} ({{selectedPartner.feedbacks?.length}})
+      </p-header>
+      <p-dataGrid [value]="selectedPartner.feedbacks" [paginator]="true" [rows]="1">
+        <ng-template let-feedback pTemplate="item">
+          <div  class="ui-grid ui-grid-responsive">
+            <rating [ngModel]="feedback.rate"
+                    [float]="true" [readonly]="true">
+            </rating>
+            <br/>
+            {{feedback.context}}
+          </div>
+        </ng-template>
+      </p-dataGrid>
+
+    </p-dialog>
+
+    <p-dialog [(visible)]="_showPartnerImages" [responsive]="true" showEffect="fade" [modal]="true"
+              (onAfterHide)="closePartnerDetails()" [closable]="true">
+      <p-dataGrid [value]="selectedPartner.photoDtos" [paginator]="true" [rows]="2">
+        <ng-template let-photodto pTemplate="item">
+          <img src="{{safeImage(photodto.image_path)}}" style="width: 200px;height: 200px;"/>
+        </ng-template>
+      </p-dataGrid>
+    </p-dialog>
+  </p-tabPanel>
+  <p-tabPanel header="{{'myrequest_tabname' | translate}}">
+    <p-accordion>
+      <p-accordionTab header="{{'unacceptedrequests_tabname' | translate}}" [selected]="true">
+        <p-dataList [value]="unAcceptedRequests" [paginator]="true" [rows]="5"
+                    *ngIf="unAcceptedRequests.length != 0">
+          <ng-template let-request pTemplate="item">
+
+            <div class="ui-grid ui-grid-responsive ui-fluid"
+                 style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-9">
+                  <div class="ui-grid ui-grid-responsive ui-fluid">
+                    <div class="ui-grid-col-10"><img src="{{safeImage(request.partner?.imgpath)}}"
+                                                     style="width: 45px;height: 45px;"/></div>
+                    <div class="ui-grid-col-10">Name {{request.partner?.name}}</div>
+                    <div class="ui-grid-col-10">Telephone {{request.partner?.telephone}}</div>
+                  </div>
+                </div>
+                <div class="ui-grid-col-9">
+                  <div class="ui-grid ui-grid-responsive ui-fluid">
+                    <div>Start {{request.startTime| date: 'MMM dd yy, HH:mm'}}</div>
+                  </div>
+                </div>
+                <div class="ui-grid-col-9">
+                  <div class="ui-grid ui-grid-responsive ui-fluid">
+                    <button pButton type="button" (click)="deleteEvent(request)" label="Cancel"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </ng-template>
+        </p-dataList>
+      </p-accordionTab>
+      <p-accordionTab header="{{'acceptedrequests_tabname' | translate}}">
+        <p-dataList [value]="acceptedRequests" [paginator]="true" [rows]="5"
+                    *ngIf="acceptedRequests.length != 0">
+          <ng-template let-request pTemplate="item">
+
+            <div class="ui-grid ui-grid-responsive ui-fluid"
+                 style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-9">
+                  <div class="ui-grid ui-grid-responsive ui-fluid">
+                    <div class="ui-grid-col-10"><img src="{{safeImage(request.partner?.imgpath)}}"
+                                                     style="width: 45px;height: 45px;"/></div>
+                    <div class="ui-grid-col-10">Name {{request.partner?.name}}</div>
+                    <div class="ui-grid-col-10">Telephone {{request.partner?.telephone}}</div>
+                  </div>
+                </div>
+                <div class="ui-grid-col-9">
+                  <div class="ui-grid ui-grid-responsive ui-fluid">
+                    <div>Start {{request.startTime| date: 'MMM dd yy, HH:mm'}}</div>
+                    <div>Duration {{request.duration}}</div>
+                    <div>End {{request.endTime| date: 'MMM dd yy, HH:mm'}}</div>
+                  </div>
+                </div>
+                <div class="ui-grid-col-9">
+                  <div class="ui-grid ui-grid-responsive ui-fluid">
+                    <button pButton type="button" (click)="setSelectedPartnier(request.partner)"
+                            label="New reserve"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </ng-template>
+        </p-dataList>
+      </p-accordionTab>
+      <p-accordionTab header="{{'donerequests_tabname' | translate}}">
+        <p-dataList [value]="completedRequests" [paginator]="true" [rows]="5"
+                    *ngIf="completedRequests.length != 0">
+          <ng-template let-request pTemplate="item">
+
+            <div class="ui-grid ui-grid-responsive ui-fluid"
+                 style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-9">
+                  <div class="ui-grid ui-grid-responsive ui-fluid">
+                    <div class="ui-grid-col-10"><img src="{{safeImage(request.partner?.imgpath)}}"
+                                                     style="width: 45px;height: 45px;"/></div>
+                    <div class="ui-grid-col-10">Name {{request.partner?.name}}</div>
+                    <div class="ui-grid-col-10">Telephone {{request.partner?.telephone}}</div>
+                  </div>
+                </div>
+                <div class="ui-grid-col-9">
+                  <div class="ui-grid ui-grid-responsive ui-fluid">
+                    <div>Start {{request.startTime| date: 'MMM dd yy, HH:mm'}}</div>
+                    <div>Duration {{request.duration}}</div>
+                  </div>
+                </div>
+                <div class="ui-grid-col-9">
+                  <div class="ui-grid ui-grid-responsive ui-fluid">
+                    <button pButton type="button" *ngIf="!request.israted" (click)="setCompletedRequest(request)"
+                            label="Leave feedback"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-dataList>
+      </p-accordionTab>
+    </p-accordion>
+  </p-tabPanel>
+  <!-- <p-tabPanel header="{{'favorites_tabname' | translate}}">
+     Content 4
+   </p-tabPanel>-->
+</p-tabView>
+
+<p-dialog [(visible)]="!_showLocation && hasAcceptedRequest" [responsive]="true" showEffect="fade" [modal]="true"
+         >
+  <div>You have accepted request | count is: {{acceptedEvents().length}}</div>
+  <button pButton type="button" label="OK" (click)="closeAcceptedRequests()"></button>
+</p-dialog>
+
+<p-dialog header="Please tell your rate" [(visible)]="!_showLocation && !hasAcceptedRequest && hasDoneRequest"
+          [responsive]="true" showEffect="fade"
+          [modal]="true">
+  <div *ngIf="doneEvents().length == 1">
+    <img src="{{safeImage(doneEvents()[0].partner?.imgpath)}}" style="width: 45px;height: 45px;"/>
+    <div>{{doneEvents()[0].partner?.name}}</div>
+    <div>{{doneEvents()[0].partner?.telephone}}</div>
+    <hr>
+    <div class="ui-grid-col-9">
+      <rating [(ngModel)]="_newFeedback.rate"
+              [float]="true" [readonly]="false">
+      </rating>
+
+      <div class="validation-error-block" *ngIf="_isRatedFalseFrom">Minimum rate is 1.</div>
+    </div>
+    <div class="ui-grid-col-9">
+      <input type="text" pInputText id="newFeedbackContextId" style="width: auto;height: auto;"
+             [(ngModel)]="_newFeedback.context"
+             field="_newFeedback.context"/>
+    </div>
+  </div>
+
+
+  <button pButton type="button" label="Rate" *ngIf="doneEvents().length == 1"
+          (click)="addFeedBack(doneEvents()[0])"></button>
+  <div *ngIf="doneEvents().length > 1">You have done request | count is: {{doneEvents().length}}</div>
+  <button pButton type="button" label="Skip" (click)="closeDoneRequests()"></button>
+
+</p-dialog>
+
+<p-dialog header="Your feedback is so important :)" [(visible)]="_isLeavingFeedback"
+          [responsive]="true" showEffect="fade"
+          [modal]="true">
+  <div class="ui-grid-col-9">
+    <rating [(ngModel)]="_newFeedbackFromOrders.rate"
+            [float]="true" [readonly]="false">
+    </rating>
+    <div class="validation-error-block" *ngIf="_newFeedbackFromOrdersFalseRated">Minimum rate is 1.</div>
+  </div>
+  <div class="ui-grid-col-9">
+    <input type="text" pInputText id="feedbackContextId" style="width: auto;height: auto;"
+           [(ngModel)]="_newFeedbackFromOrders.context"
+           field="_newFeedbackFromOrders.context"/>
+  </div>
+  <div class="ui-grid-col-9">
+    <button pButton type="button" label="Leave"
+            (click)="addFeedbackFromOrders(completedRequest)"></button>
+  </div>
+</p-dialog>
