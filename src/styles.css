@@ -17,3 +17,28 @@ ul.ui-widget-header{
 
 }
 
+html, body {
+  overflow-x: hidden;
+}
+body {
+  position: relative
+}
+/*
+body {
+
+   width: 100%;
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   box-sizing: border-box;
+ }*/
+i:hover{
+  color: grey;
+}
+
+div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ui-dialog-draggable{
+  left:10% !important;
+  top: 5% !important;
+  right: 10% !important;
+}
+
+

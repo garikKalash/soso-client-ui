@@ -9,22 +9,29 @@ import {MenuItem} from "primeng/components/common/api";
 })
 export class AppComponent implements OnInit{
   public supportedLanguages:any[];
+  public selectedLang:string;
 
   constructor(private _translate: TranslateService,private sanitizer: Sanitizer) { }
 
   ngOnInit() {
     // standing datad
     this.supportedLanguages = [
-      { display: 'Հայերեն', value: 'am', flagpath:"http://flagpedia.net/data/flags/mini/am.png" },
-      { display: 'English', value: 'en', flagpath:"http://flagpedia.net/data/flags/mini/gb.png" },
+      { display: 'Հայերեն', value: 'am', flagpath:"http://flagpedia.net/data/flags/mini/am.png",label:"Հայ" },
+      { display: 'English', value: 'en', flagpath:"http://flagpedia.net/data/flags/mini/gb.png", label: "Eng" },
     ];
 
-    this.selectLang('am');
+
+    this.selectedLang = this.supportedLanguages[0].value;
+    this.selectLang(this.selectedLang);
 
   }
 
   isCurrentLang(lang: string) {
     return lang === this._translate.currentLang;
+  }
+
+  selectLanguage(){
+    this.selectLang(this.selectedLang);
   }
 
   selectLang(lang: string) {

@@ -244,6 +244,16 @@ export class ClientAccountComponent implements OnInit {
     return this.eventListenerService.thereIsAcceptedEvent;
   }
 
+  public needSoso:boolean = true;
+
+  changePageContentToRequests(){
+    this.needSoso = false;
+  }
+
+  changePageContentToSearch(){
+    this.needSoso = true;
+  }
+
 
   set hasAcceptedRequest(value: boolean) {
     this._hasAcceptedRequest = value;
@@ -254,7 +264,6 @@ export class ClientAccountComponent implements OnInit {
   }
 
   private _hasDoneRequest: boolean;
-
 
   get hasDoneRequest(): boolean {
     this._hasDoneRequest = this.eventListenerService.thereIsDoneEvent;

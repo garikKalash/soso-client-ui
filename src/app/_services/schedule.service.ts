@@ -19,9 +19,9 @@ export class ScheduleService {
   private _showEventDetails: boolean = false;
   private _creatingEventDetails: boolean = false;
 
-  private _acceptedRequests: Request[] = [];
-  private _unAcceptedRequests: Request[] = [];
-  private _completedRequests: Request[] = [];
+  private _acceptedRequests: Request[];
+  private _unAcceptedRequests: Request[];
+  private _completedRequests: Request[];
 
   constructor(private httpWrap: HttpWrap, private partnerService: PartnerService) {
 

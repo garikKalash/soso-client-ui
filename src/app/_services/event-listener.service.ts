@@ -26,6 +26,14 @@ export class EventListenerService {
       this.httpWrap.get(this.myUrl+'eventsListener/acceptedeventsbyclient/' + clientId).map((response: Response) => response.text()).subscribe(
         (data: string) => {
           this._acceptedEvents = ConverterUtils.eventsFromJson(data);
+          for(let event of this._acceptedEvents){
+            this.partnerService.getPartnerMainDetailsById(event.partnerId).subscribe(
+              partner=>{
+                event.partner =  ConverterUtils.partnerFromJson(partner);
+              }
+            )
+          }
+
           this._thereIsAcceptedEvent = this._acceptedEvents.length != 0;
         }
       );
