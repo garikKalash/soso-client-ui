@@ -1,8 +1,8 @@
-<div style="display: inline-block; width: 100%;">
-  <div style="float: left">
-    SOSO
+<div class="soso-header">
+  <div  class="soso-logo" style="float: left">
+    <div class="soso-logo-text">SOSO</div>
   </div>
-  <div style="float: right">
+  <div class="soso-languages-block">
     <p-dropdown [options]="supportedLanguages"  [style]="{'width':'90px'}" [(ngModel)] = "selectedLang" (onChange)="selectLanguage()">
     <ng-template let-lang pTemplate="item">
       <div class="ui-helper-clearfix" style="position: relative;height: 25px;">

@@ -6,6 +6,7 @@ import {Response} from "@angular/http";
 import {ConverterUtils} from "../_commonServices/converter.service";
 import {PartnerService} from "./partner.service";
 import {Partner} from "../_models/partner.model";
+import {ServiceUrlProvider} from "../_commonServices/mode-resolver.service";
 
 
 @Injectable()
@@ -203,14 +204,14 @@ export class ScheduleService {
 
 
   getReservationsForPartner(partnerId: number, status: number): Observable<string> {
-    return this.httpWrap.get('http://soso-partner.herokuapp.com/partner/reservationsforpartner/' + partnerId + '/' + status)
+    return this.httpWrap.get(ServiceUrlProvider.getPartnerServiceUrl() + 'partner/reservationsforpartner/' + partnerId + '/' + status)
       .map((response: Response) => response.text());
 
   }
 
 
   getReservationsForClient(clientId: number, status: number): Observable<string> {
-    return this.httpWrap.get('http://soso-partner.herokuapp.com/partner/reservationsforclient/' + clientId + '/' + status)
+    return this.httpWrap.get(ServiceUrlProvider.getPartnerServiceUrl() + 'partner/reservationsforclient/' + clientId + '/' + status)
       .map((response: Response) => response.text());
 
   }
@@ -219,12 +220,12 @@ export class ScheduleService {
   saveReservation(request: Request): Observable<string> {
     let requesNew: Request = new Request(request.id, request.clientId, request.partnerId, request.startTime, request.description, request.status, request.responseText, request.duration, request.serviceId, request.israted);
     let data: string = requesNew.toJsonString();
-    return this.httpWrap.post('http://soso-partner.herokuapp.com/partner/addReserve', data)
+    return this.httpWrap.post(ServiceUrlProvider.getPartnerServiceUrl() + 'partner/addReserve', data)
       .map((response: Response) => response.text());
   }
 
   deleteReservation(requestId: number,clientid:number): void {
-    this.httpWrap.delete('http://soso-partner.herokuapp.com/partner/deletereserve/' + requestId)
+    this.httpWrap.delete(ServiceUrlProvider.getPartnerServiceUrl() + 'partner/deletereserve/' + requestId)
       .map((response: Response) => response.text()).subscribe(data => {
       let index: number = this.findEventIndexById(requestId);
       if (index >= 0) {

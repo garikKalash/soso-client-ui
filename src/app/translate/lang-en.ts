@@ -6,7 +6,7 @@ export const LANG_EN_TRANS = {
   'signout': 'Sign Out',
   'signin':'Sign In',
   'signup': 'Sign Up',
-  'myrequest_tabname': 'My Request',
+  'myrequest_tabname': 'My Requests',
   'favorites_tabname': 'Favoorites',
   'unacceptedrequests_tabname': 'Unaccepted',
   'acceptedrequests_tabname': 'Accepted',
@@ -37,9 +37,18 @@ export const LANG_EN_TRANS = {
   'newrequests_tabname': 'New Requests',
   'backtopartnerdetails': 'Go my details',
   'cancelbtnlabel': 'Cancel',
-  'savebtnlabel': 'Save'
-
-
-
-
+  'savebtnlabel': 'Save',
+  'welcomepagetext':'Welcome to SOSO :) For looking services please signin or join to our system.',
+  'wrongpassword': 'Invalid password.',
+  'wrongusername': 'Invalid phonenumber.',
+  'wrongdetails': 'Invalid password or phonenumber.',
+  'wrongname': 'Name should be contain more than 3 letters.',
+  'uniquetelephonemessage': 'Phone number should be unique.',
+  'my_location':'My location',
+  'soso':'Soso',
+  'emptyeventsmessage': " There aren't new events.",
+  'acceptedeventmessage':' has accepted your request :)',
+  'doneeventmessage':'You have done events please give your feedbacks.',
+  'minimumrateerrormessage':'Minimum rate is 1.',
+  'seeservices_btn_lbl':'See services'
 };

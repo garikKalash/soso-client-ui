@@ -22,7 +22,7 @@ export class EventListenerService {
   }
 
   autoCheckAcceptedEvents(clientId: number): void {
-    if (!this._thereIsAcceptedEvent) {
+
       this.httpWrap.get(this.myUrl+'eventsListener/acceptedeventsbyclient/' + clientId).map((response: Response) => response.text()).subscribe(
         (data: string) => {
           this._acceptedEvents = ConverterUtils.eventsFromJson(data);
@@ -37,7 +37,7 @@ export class EventListenerService {
           this._thereIsAcceptedEvent = this._acceptedEvents.length != 0;
         }
       );
-    }
+
   }
 
   autoCheckDoneEvents(clientId: number): void {

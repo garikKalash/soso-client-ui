@@ -17,6 +17,7 @@ import {Event} from "../../_models/event.model";
 import {Feedback} from "../../_models/feedback.model";
 import {PartnerServiceDetail} from "../../_models/partner-service-detail.model";
 import {ServiceUrlProvider} from "../../_commonServices/mode-resolver.service";
+import {TranslateService} from "../../translate/translate.service";
 
 
 @Component({
@@ -27,19 +28,19 @@ import {ServiceUrlProvider} from "../../_commonServices/mode-resolver.service";
 })
 export class ClientAccountComponent implements OnInit {
   private _client: Client = <Client>{};
-  private _services: Service[] = [];
+  private _services: Service[];
 
-  private _servicesAsSelectItems: SelectItem[] = [];
+  private _servicesAsSelectItems: SelectItem[];
   private _selectedService: Service = <Service>{};
 
-  private _filteredPartnersByService: Partner[] = [];
+  private _filteredPartnersByService: Partner[];
   private _showAvailableServices:boolean = false;
 
   private _selectedPartner: Partner = <Partner>{};
   private _reservePartner: boolean = false;
 
   private _showPartnerImages: boolean = false;
-  private _imagesForView: any[] = [];
+  private _imagesForView: any[];
 
   private _showPartnerFeedbacks: boolean = false;
   private _showLocation: boolean = true;
@@ -56,6 +57,7 @@ export class ClientAccountComponent implements OnInit {
 
 
   constructor(private partnerService: PartnerService,
+              private _translate: TranslateService,
               private classierService: ClassifierService,
               private sanitizer: Sanitizer,
               private clientService: ClientService,
@@ -293,6 +295,7 @@ export class ClientAccountComponent implements OnInit {
   showSelectedPartnerDetails(partner: Partner) {
     this.selectedPartner = partner;
     for (let path of partner.photoDtos) {
+      this._imagesForView = [];
       this._imagesForView.push({source: this.safeImage(path.image_path), thumbnail: this.safeImage(path.image_path)});
     }
     this._showPartnerImages = true;
@@ -342,9 +345,12 @@ export class ClientAccountComponent implements OnInit {
 
   initServices(): void {
     this.classierService.getGeneralServices().subscribe(
+
       data => {
+        this._servicesAsSelectItems = [];
+
         this._services = ConverterUtils.servicesFromJson(data);
-        this._servicesAsSelectItems.push({label: '-- Choose service --', value: null});
+        this._servicesAsSelectItems.push({label: this._translate.currentLang === 'en' ? '-- Choose one service --' : '-- Ընտրեք ծառայությունը --' , value: null});
         this.selectedService = this._servicesAsSelectItems[0].value;
         for (let service of this._services) {
           this._servicesAsSelectItems.push({label: service._serviceName_arm, value: service});
@@ -423,9 +429,9 @@ export class ClientAccountComponent implements OnInit {
     let now: Date = new Date();
     let eventDay: Date = event.date._d;
 
-    if (eventDay.getDate() >= now.getDate() && eventDay.getMonth() >= now.getMonth() && eventDay.getFullYear() >= now.getFullYear()) {
+
       this.scheduleService.handleDayClick(event);
-    }
+
   }
 
   logout(): void {
@@ -518,5 +524,10 @@ export class ClientAccountComponent implements OnInit {
 
   set selectedService(value: Service) {
     this._selectedService = value;
+  }
+
+  isReady():boolean{
+    return !!(this._services && this._client);
+
   }
 }

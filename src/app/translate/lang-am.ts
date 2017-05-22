@@ -37,5 +37,18 @@ export const LANG_AM_TRANS = {
   'newrequests_tabname': 'Նոր ամրագրումներ',
   'backtopartnerdetails': 'Գնալ իմ էջ',
   'cancelbtnlabel': 'Չեղարկել',
-  'savebtnlabel': 'Հիշել'
+  'savebtnlabel': 'Հիշել',
+  'welcomepagetext':'Բարի գալուստ ՍՈՍՈ :) Ծառայություններ փնտրելու համար գրանցվիր կամ մուտք գործիր համակարգ:',
+  'wrongpassword': 'Սխալ մուտքագրված գաղտնաբառ։',
+  'wrongusername': 'Սխալ մուտքագրված հեռախոսահամար։',
+  'wrongdetails': 'Սխալ մուտքագրված տվյալներ։',
+  'wrongname': 'Անունի դաշտը չի կարող լինել 3-ից կարճ։',
+  'uniquetelephonemessage': 'Նման հեռախոսահամար համակարգում արդեն գոյութոյւն ունի։',
+  'my_location':'Իմ տեղը',
+  'soso':'ՍՈՍՈ',
+  'emptyeventsmessage': "Նոր ծանուցումներ չկան։",
+  'acceptedeventmessage':'-ը ընդունել է Ձեր ամրագրումը :)',
+  'doneeventmessage':'Դուք ունեք ավարտված ամրագրումներ խնդրում ենք թողնել Ձեր կարծիքը։',
+  'minimumrateerrormessage':'Գնահատականը պարտադիր է։',
+  'seeservices_btn_lbl':'Նայել գնացուցակը'
 };
