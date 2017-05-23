@@ -249,6 +249,7 @@ export class ClientAccountComponent implements OnInit {
   public needSoso:boolean = true;
 
   changePageContentToRequests(){
+    this.scheduleService.initAllRequestsOfClient(this._client.id)
     this.needSoso = false;
   }
 

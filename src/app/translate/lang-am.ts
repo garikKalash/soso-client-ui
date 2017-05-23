@@ -50,5 +50,9 @@ export const LANG_AM_TRANS = {
   'acceptedeventmessage':'-ը ընդունել է Ձեր ամրագրումը :)',
   'doneeventmessage':'Դուք ունեք ավարտված ամրագրումներ խնդրում ենք թողնել Ձեր կարծիքը։',
   'minimumrateerrormessage':'Գնահատականը պարտադիր է։',
-  'seeservices_btn_lbl':'Նայել գնացուցակը'
+  'seeservices_btn_lbl':'Նայել գնացուցակը',
+  'today':'այսօր',
+  'month':'ամիս',
+  'week':'շաբաթ',
+  'day':'օր'
 };

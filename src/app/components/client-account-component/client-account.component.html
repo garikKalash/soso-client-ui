@@ -257,12 +257,15 @@
     <p-dialog [(visible)]="_reservePartner" showEffect="fade" [modal]="true"
               [style]="{'overflow':'visible'}"
               [contentStyle]="{'overflow':'visible'}"
+              [styleClass] = "'soso-schedule-class'"
               (onAfterHide)="closeSelectedPartnierDetails()" [closable]="true">
       <p-schedule [events]="getSchedule()"
-                  [header]="header"
+                  [header]="{left: 'prev,next', center: 'title', right: 'agendaDay,agendaWeek,month'}"
                   [allDaySlot]="false"
                   [editable]="true"
                   [eventLimit]="4"
+                  [contentHeight] = "'100%'"
+                  [timezone]="'local'"
                   (onEventClick)="onEventClickHandler($event)"
                   (onDayClick)="onDayClickHandler($event)">
       </p-schedule>
@@ -340,13 +343,10 @@
             <label>{{'startTime' | translate}}</label>
             <p-calendar [(ngModel)]="newRequest().newRequestStartTime" [timeOnly]="true"></p-calendar>
             <div class="validation-error-block" *ngIf="_crossedRequestStartNewRequest">Reserve with this duration is
-              crossed with reservation which is starting {{_crossedRequestStartNewRequest?.startTime | date: 'MMM dd
-              yy,HH:mm'}} with duration {{_crossedRequestStartNewRequest?.duration}}.
+              crossed with reservation which is starting {{_crossedRequestStartNewRequest?.startTime | date: 'MMM dd yy,HH:mm'}} with duration {{_crossedRequestStartNewRequest?.duration}}.
             </div>
             <div class="validation-error-block" *ngIf="_crossedRequestDurationNewRequest">Reserve with this duration
-              is crossed with reservation which is starting {{_crossedRequestDurationNewRequest?.startTime | date:'MMM
-              dd
-              yy, HH:mm'}}.
+              is crossed with reservation which is starting {{_crossedRequestDurationNewRequest?.startTime | date:'MMM dd yy, HH:mm'}}.
             </div>
 
           </div>

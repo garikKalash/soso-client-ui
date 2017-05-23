@@ -50,5 +50,9 @@ export const LANG_EN_TRANS = {
   'acceptedeventmessage':' has accepted your request :)',
   'doneeventmessage':'You have done events please give your feedbacks.',
   'minimumrateerrormessage':'Minimum rate is 1.',
-  'seeservices_btn_lbl':'See services'
+  'seeservices_btn_lbl':'See services',
+  'today':'today',
+  'month':'month',
+  'week':'week',
+  'day':'day'
 };
