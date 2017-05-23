@@ -15,15 +15,7 @@ ul.ui-widget-header{
   background-color:#f2f5f7 !important;
 
 }
-.validation-error-block{
-  margin-top: 1%;
-  background-color: pink;
-  width: 100%;
-  border: 1px solid;
-  border-radius: 10px;
-  border-color: red;
 
-}
 
 
 html, body {
@@ -52,6 +44,16 @@ i:hover{
     left:15% !important;
     top: 5% !important;
     right: 15% !important;
+
+  }
+
+  .validation-error-block{
+    margin-top: 1%;
+    background-color: pink;
+    width: 100%;
+    border: 1px solid;
+    border-radius: 10px;
+    border-color: red;
 
   }
 
@@ -190,6 +192,16 @@ i:hover{
     float: left !important;
   }
 
+  .validation-error-block{
+    margin-top: 1%;
+    background-color: pink;
+    width: 100%;
+    border: 1px solid;
+    border-radius: 10px;
+    border-color: red;
+
+  }
+
   .soso-user-features{
     width: 38% !important;
     float: right !important;
@@ -220,6 +232,16 @@ i:hover{
     display: none;
   }
 
+
+  .soso-dialog-content{
+  margin-left: 40%;
+}
+
+  .soso-loading{
+  background-image: url('https://cdn.dribbble.com/users/359314/screenshots/2379673/untitled-3.gif');
+  height: 30%;
+  width: 50%;
+}
   .soso-logo{
     margin-top: 0.8%;
     margin-left: 10%;
@@ -231,16 +253,6 @@ i:hover{
     border-radius: 10px;
     width: 120px;
     height: 72%;
-  }
-
-  .soso-dialog-content{
-    margin-left: 40%;
-  }
-
-  .soso-loading{
-    background-image: url('https://cdn.dribbble.com/users/359314/screenshots/2379673/untitled-3.gif');
-    height: 30%;
-    width: 50%;
   }
 
   .soso-languages-block{
