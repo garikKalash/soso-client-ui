@@ -4,6 +4,13 @@ div.ui-datagrid-header.ui-widget-header.ui-corner-top{
   display: none !important;
 }
 
+div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ui-dialog-draggable{
+  left:15% !important;
+  top: 5% !important;
+  right: 15% !important;
+
+}
+
 .soso-bold{
   font-weight:bold;
 }
@@ -187,11 +194,6 @@ i:hover{
 
 /* mobile design */
 @media screen and (max-width: 739px){
-  div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ui-dialog-draggable{
-    width: 100%;
-
-
-  }
 
   div.ui-md-3:hover {
     box-shadow: 0  0 rgba(0, 0, 0, 0.2), 0 0 rgba(0, 0, 0, 0.19);
