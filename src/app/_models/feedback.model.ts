@@ -50,13 +50,13 @@ export class Feedback {
     this._requestId = requestId;
   }
 
-  private _id: number;
-  private _fromClientName: number;
-  private _rate: number;
-  private _context: string;
-  private _clientId:number;
-  private _partnerId:number;
-  private _requestId:number;
+  public _id: number;
+  public _fromClientName: number;
+  public _rate: number;
+  public _context: string;
+  public _clientId:number;
+  public _partnerId:number;
+  public _requestId:number;
 
   public toJsonString(): string {
     let json = JSON.stringify(this);

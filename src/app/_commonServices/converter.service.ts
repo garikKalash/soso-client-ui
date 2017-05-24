@@ -57,7 +57,7 @@ export class ConverterUtils {
 
   }
 
-  private static  getAverageRateForFeedbacks(feedbacks: Feedback[]): number {
+  public static  getAverageRateForFeedbacks(feedbacks: Feedback[]): number {
     let averageRate: number = 0;
     if (feedbacks.length != 0) {
       for (let feedback of feedbacks) {

@@ -1,16 +1,16 @@
 import {Partner} from "./partner.model";
 import {Client} from "./client.model";
 export class Event{
-  private _id:number;
-  private _partnerId:number;
-  private _partner:Partner;
+  public _id:number;
+  public _partnerId:number;
+  public _partner:Partner;
 
-  private _clientId:number;
-  private _client:Client;
+  public _clientId:number;
+  public _client:Client;
 
-  private _requestId:number;
-  private _isSeen:boolean;
-  private _seenTime:Date;
+  public _requestId:number;
+  public _isSeen:boolean;
+  public _seenTime:Date;
 
 
 

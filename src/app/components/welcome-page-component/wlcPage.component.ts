@@ -12,8 +12,8 @@ import {AuthenticationService} from "../../_services/authentication.service";
   styleUrls: ['wlcPage.component.css']
 })
 export class WelcomePageComponent implements OnInit{
-  private _isSigningUser:boolean = false;
-  private _isSignupingUser:boolean = false;
+  public _isSigningUser:boolean = false;
+  public _isSignupingUser:boolean = false;
 
 
   constructor(private router: Router,private authenticationService:AuthenticationService){}

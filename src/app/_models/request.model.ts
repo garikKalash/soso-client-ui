@@ -1,22 +1,22 @@
 import {PartnerServiceDetail} from "./partner-service-detail.model";
 import {Partner} from "./partner.model";
 export class Request{
-  private _id:number;
-  private _clientId:number;
+  public _id:number;
+  public _clientId:number;
 
-  private _partnerId:number;
-  private _partner:Partner;
+  public _partnerId:number;
+  public _partner:Partner;
 
-  private _startTime:Date;
-  private _description:string;
-  private _status:number;
-  private _responseText:string;
-  private _duration:number;
-  private _endTime:Date;
-  private _newRequestStartTime : Date;
-  private _serviceId:number;
-  private _service:PartnerServiceDetail;
-  private _israted:boolean;
+  public _startTime:Date;
+  public _description:string;
+  public _status:number;
+  public _responseText:string;
+  public _duration:number;
+  public _endTime:Date;
+  public _newRequestStartTime : Date;
+  public _serviceId:number;
+  public _service:PartnerServiceDetail;
+  public _israted:boolean;
 
   constructor(id: number, clientId: number, partnerId:number,
               startTime: Date, description: string,

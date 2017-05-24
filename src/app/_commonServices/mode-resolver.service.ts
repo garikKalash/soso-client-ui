@@ -4,7 +4,7 @@ export class ServiceUrlProvider {
    * and 2 for live version
    * */
 
-  private static mode: number = 2;
+  public static mode: number = 2;
 
   public static  getAuthenticationServiceUrl(): string {
     return ServiceUrlProvider.mode === 1 ? "http://localhost:8002/" : "http://soso-authentication-service.herokuapp.com/";

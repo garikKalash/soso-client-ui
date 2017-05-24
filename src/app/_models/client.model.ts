@@ -1,8 +1,8 @@
 export class Client{
-  private _id:number;
-  private _name:string;
-  private _telephone:string;
-  private _password:string;
+  public _id:number;
+  public _name:string;
+  public _telephone:string;
+  public _password:string;
 
 
   constructor(id: number,  name: string, telephone: string, password: string) {

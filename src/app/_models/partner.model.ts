@@ -44,27 +44,27 @@ export class Partner {
   set imgpath(value: string) {
     this._imgpath = value;
   }
-  private _id: number;
-  private _name: string;
-  private _telephone: string;
-  private _serviceId: number;
-  private _serviceName:string;
-  private _username: string;
-  private _password: string;
-  private _address: string;
-  private _feedbacks: Feedback[];
-  private _photoDtos: Photo[] = [];
+  public _id: number;
+  public _name: string;
+  public _telephone: string;
+  public _serviceId: number;
+  public _serviceName:string;
+  public _username: string;
+  public _password: string;
+  public _address: string;
+  public _feedbacks: Feedback[];
+  public _photoDtos: Photo[] = [];
 
-  private _notices: string;
-  private _followers: string[];
-  private _longitude: number;
-  private _latitude: number;
-  private _imgpath: string;
-  private _averageRate: number;
-  private _reservable:boolean;
-  private _services:PartnerServiceDetail[] = [];
-  private _hasSubServices:boolean;
-  private _imagesView:any[] = [];
+  public _notices: string;
+  public _followers: string[];
+  public _longitude: number;
+  public _latitude: number;
+  public _imgpath: string;
+  public _averageRate: number;
+  public _reservable:boolean;
+  public _services:PartnerServiceDetail[] = [];
+  public _hasSubServices:boolean;
+  public _imagesView:any[] = [];
 
   constructor(id: number,
               number: string,

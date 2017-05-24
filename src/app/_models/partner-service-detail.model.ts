@@ -1,13 +1,13 @@
 
 import {Service} from "./service.model";
 export class PartnerServiceDetail{
-  private _id:number;
-  private _serviceId:number;
-  private _service:Service;
-  private _partnerId:number;
-  private _defaultduration:number;
-  private _price:number;
-  private _isEditing:boolean = false;
+  public _id:number;
+  public _serviceId:number;
+  public _service:Service;
+  public _partnerId:number;
+  public _defaultduration:number;
+  public _price:number;
+  public _isEditing:boolean = false;
 
   constructor(id: number, serviceId: number, partnerId: number, defaaultduration: number, price: number) {
     this._id = id;

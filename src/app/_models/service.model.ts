@@ -2,10 +2,10 @@
  * Created by Home on 3/4/2017.
  */
 export class Service {
-  private id: number;
-  private serviceName_eng: string;
-  private serviceName_arm: string;
-  private _imgpath: string;
+  public id: number;
+  public serviceName_eng: string;
+  public serviceName_arm: string;
+  public _imgpath: string;
 
   constructor(id: number, servicename_eng: string, servicename_arm: string, imgpath: string) {
     this.id = id;

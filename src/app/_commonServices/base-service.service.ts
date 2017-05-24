@@ -6,12 +6,12 @@ import {HttpWrap} from "./httpWrap.service";
 
 @Injectable()
 export class ServiceInfoProvider {
-  private _serviceId: number;
+  public _serviceId: number;
 
   //for live http://pure-badlands-72083.herokuapp.com/
-  private _serviceBaseUrl: string = "http://localhost:9011/";
+  public _serviceBaseUrl: string = "http://localhost:9011/";
 
-  constructor(private  httpWrap: HttpWrap) {
+  constructor(public  httpWrap: HttpWrap) {
 
   }
 

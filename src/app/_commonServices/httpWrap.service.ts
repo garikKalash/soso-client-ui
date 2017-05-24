@@ -12,10 +12,10 @@ import {Observable} from "rxjs";
 
 @Injectable()
 export class HttpWrap{
-  private static _headers = new Headers({'Content-Type': 'application/json','Accept':'application/json'});
-  private static _options = <RequestOptions>{};
+  public static _headers = new Headers({'Content-Type': 'application/json','Accept':'application/json'});
+  public static _options = <RequestOptions>{};
 
-  constructor(private http:Http){
+  constructor(public http:Http){
     HttpWrap._headers.append('token','');
     HttpWrap._headers.append('clientId','');
   }

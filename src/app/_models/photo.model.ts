@@ -1,7 +1,7 @@
 export class Photo{
-  private _id:number;
-  private _partner_id:number;
-  private _image_path:string;
+  public _id:number;
+  public _partner_id:number;
+  public _image_path:string;
 
   constructor(id: number, partner_id: number, image_path: string) {
     this._id = id;
