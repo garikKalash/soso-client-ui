@@ -9,7 +9,7 @@ export class ServiceInfoProvider {
   public _serviceId: number;
 
   //for live http://pure-badlands-72083.herokuapp.com/
-  public _serviceBaseUrl: string = "http://localhost:9011/";
+  public _serviceBaseUrl: string = "https://localhost:9011/";
 
   constructor(public  httpWrap: HttpWrap) {
 

@@ -179,6 +179,11 @@ i:hover {
     margin-left: 10%;
     margin-right: 10%;
   }
+
+  .soso-services-list {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
 }
 
 /* mobile design */
@@ -292,7 +297,7 @@ i:hover {
 
   .soso-wlc-page-text {
     font-weight: bold;
-    font-size: large;
+    font-size:medium ;
   }
 
   .soso-wlc-page-buttons {
