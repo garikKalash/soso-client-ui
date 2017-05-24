@@ -187,6 +187,12 @@ i:hover{
 
 /* mobile design */
 @media screen and (max-width: 739px){
+  div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ui-dialog-draggable{
+    width: 100%;
+
+
+  }
+
   div.ui-md-3:hover {
     box-shadow: 0  0 rgba(0, 0, 0, 0.2), 0 0 rgba(0, 0, 0, 0.19);
     color: #277fb3;
@@ -208,6 +214,11 @@ i:hover{
     border-radius: 10px;
     border-color: red;
 
+  }
+
+  .soso-services-list{
+    margin-left: 10%;
+    margin-right: 10%;
   }
 
   .soso-user-features{
@@ -290,7 +301,7 @@ i:hover{
 
   .soso-wlc-page-text{
     font-weight: bold;
-    font-size: x-large;
+    font-size: large;
   }
 
   .soso-wlc-page-buttons{
