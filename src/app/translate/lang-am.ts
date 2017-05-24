@@ -45,7 +45,7 @@ export const LANG_AM_TRANS = {
   'wrongname': 'Անունի դաշտը չի կարող լինել 3-ից կարճ։',
   'uniquetelephonemessage': 'Նման հեռախոսահամար համակարգում արդեն գոյութոյւն ունի։',
   'my_location':'Իմ տեղը',
-  'soso':'ՍՈՍՈ',
+  'soso':'SOSO',
   'emptyeventsmessage': "Նոր ծանուցումներ չկան։",
   'acceptedeventmessage':'-ը ընդունել է Ձեր ամրագրումը :)',
   'doneeventmessage':'Դուք ունեք ավարտված ամրագրումներ խնդրում ենք թողնել Ձեր կարծիքը։',
@@ -54,5 +54,6 @@ export const LANG_AM_TRANS = {
   'today':'այսօր',
   'month':'ամիս',
   'week':'շաբաթ',
-  'day':'օր'
+  'day':'օր',
+  'radius_of_search':'Փնտրման շաառավիղը կիլոմետրերով'
 };

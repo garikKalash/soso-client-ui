@@ -54,5 +54,6 @@ export const LANG_EN_TRANS = {
   'today':'today',
   'month':'month',
   'week':'week',
-  'day':'day'
+  'day':'day',
+  'radius_of_search':'Radius of search in km'
 };

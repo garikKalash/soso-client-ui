@@ -571,7 +571,7 @@
 
   <p-dialog [(visible)]="_showLocation" [responsive]="true" showEffect="fade" [modal]="true"
             (onAfterHide)="closeLocationPicker()" [closable]="true">
-    <div>Radius of search in km</div>
+    <div>{{'radius_of_search' | translate}}</div>
     <input [(ngModel)]="_selectedRadiusForSearch"/>
     <hr>
     <div>{{mySelectedLocation()}}</div>
